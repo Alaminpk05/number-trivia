@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:number_trivia/core/error/exception.dart';
 import 'package:number_trivia/core/error/failures.dart';
 import 'package:number_trivia/core/plateform/network_info.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
@@ -21,14 +22,36 @@ class NumberTriviaRepoIml implements NumberTriviaRepository {
   Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(
     int number,
   ) async {
-    networkInfo.isConnectivity;
-    final remoteTrivia = await remoteDatasource.getConcreteNumberTrivia(number);
-    localDataSource.cacheNumberTrivia(remoteTrivia);
-    return Right(remoteTrivia);
+    return await _getTrivia(() {
+      return remoteDatasource.getConcreteNumberTrivia(number);
+    });
   }
 
   @override
   Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {
-    return Right(NumberTrivia(text: 'Test', number: 1));
+    return await _getTrivia(() {
+      return remoteDatasource.getRandomNumberTrivia();
+    });
+  }
+
+  Future<Either<Failure, NumberTrivia>> _getTrivia(
+    Future<NumberTrivia> Function() getConcretOrRandom,
+  ) async {
+    if (await networkInfo.isConnectivity) {
+      try {
+        final remoteTrivia = await getConcretOrRandom();
+        localDataSource.cacheNumberTrivia(remoteTrivia);
+        return Right(remoteTrivia);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localTrivia = await localDataSource.getLastNumberTrivia();
+        return Right(localTrivia);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
   }
 }
