@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:number_trivia/core/error/exception.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../fixtures/fixture_reader.dart';
 import 'number_trivia_local_data_source.mocks.dart';
 
@@ -20,12 +20,11 @@ void main() {
     datasource = NumberTriviaLocalDataSourceImpl(
       sharedPreferences: mockSharedPreferences,
     );
-    
   });
 
   group('gtLastNumberTrivia', () {
     final tNumberTiviaModel = NumberTriviaModel.fromJson(
-      jsonDecode( fixture('trivia_cached.json')),
+      jsonDecode(fixture('trivia_cached.json')),
     );
 
     test(
@@ -40,9 +39,44 @@ void main() {
         final result = await datasource.getLastNumberTrivia();
 
         //assert
-        verify(mockSharedPreferences.getString('CACHED_NUMBER_TRIVIA'));
+        verify(mockSharedPreferences.getString(cachedNumberTrivia));
         expect(result, equals(tNumberTiviaModel));
       },
     );
+
+    test(
+      'should throw a CachedException when there isnot cached value',
+      () async {
+        //arrange
+        when(mockSharedPreferences.getString(any)).thenReturn(null);
+
+        //act
+        final call = datasource.getLastNumberTrivia;
+
+        //assert
+
+        expect(() => call(), throwsA(TypeMatcher<CacheException>()));
+      },
+    );
   });
+
+group('cacheNumberTrivia', () {
+  final tNumberTriviaModel = NumberTriviaModel(text: 'test trivia', number: 1);
+
+  test('should call SharedPreferences to cache data', () async {
+  // arrange
+  final expectedJsonString = jsonEncode(tNumberTriviaModel.toJson());
+  when(mockSharedPreferences.setString(cachedNumberTrivia, expectedJsonString))
+      .thenAnswer((_) async => true); // <- this line fixes the error
+
+  // act
+  await datasource.cacheNumberTrivia(tNumberTriviaModel);
+
+  // assert
+  verify(mockSharedPreferences.setString(cachedNumberTrivia, expectedJsonString)).called(1);
+});
+
+});
+
+
 }

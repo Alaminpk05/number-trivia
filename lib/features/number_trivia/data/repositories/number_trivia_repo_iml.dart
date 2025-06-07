@@ -4,6 +4,7 @@ import 'package:number_trivia/core/error/failures.dart';
 import 'package:number_trivia/core/plateform/network_info.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart';
+import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:number_trivia/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:number_trivia/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
@@ -35,7 +36,7 @@ class NumberTriviaRepoIml implements NumberTriviaRepository {
   }
 
   Future<Either<Failure, NumberTrivia>> _getTrivia(
-    Future<NumberTrivia> Function() getConcretOrRandom,
+    Future<NumberTriviaModel> Function() getConcretOrRandom,
   ) async {
     if (await networkInfo.isConnectivity) {
       try {
