@@ -8,7 +8,8 @@ import 'package:number_trivia/features/number_trivia/data/datasources/number_tri
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../fixtures/fixture_reader.dart';
-import 'number_trivia_local_data_source.mocks.dart';
+import 'number_trivia_local_data_source_test.mocks.dart';
+
 
 @GenerateMocks([SharedPreferences])
 void main() {
