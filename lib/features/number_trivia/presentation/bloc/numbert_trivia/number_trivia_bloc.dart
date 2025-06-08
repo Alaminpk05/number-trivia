@@ -17,12 +17,12 @@ const String invalidInputMessage =
     'Invalide Input - the integer must be positive or 0 ';
 
 class NumberTriviaBloc extends Bloc<Getconcre, NumberTriviaState> {
-  final GetConcreteNumberTrivia getConreteNumberTrivia;
+  final GetConcreteNumberTrivia getConcreteNumberTrivia;
   final GetRandomNumberTrivia getRandomNumberTrivia;
   final InputConverter inputConverter;
 
   NumberTriviaBloc({
-    required this.getConreteNumberTrivia,
+    required this.getConcreteNumberTrivia,
     required this.getRandomNumberTrivia,
     required this.inputConverter,
   }) : super(NumberTriviaInitial()) {
@@ -41,7 +41,7 @@ class NumberTriviaBloc extends Bloc<Getconcre, NumberTriviaState> {
       },
       (integer) async {
         emit(NumberTriviaLoadingState());
-        final failureOrTrivia = await getConreteNumberTrivia(
+        final failureOrTrivia = await getConcreteNumberTrivia(
           Params(number: integer),
         );
 

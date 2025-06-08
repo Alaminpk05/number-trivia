@@ -8,12 +8,12 @@ import 'package:number_trivia/features/number_trivia/data/models/number_trivia.d
 import 'package:number_trivia/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:number_trivia/features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
-class NumberTriviaRepoIml implements NumberTriviaRepository {
+class NumberTriviaRepoImpl implements NumberTriviaRepository {
   late NumberTriviaRemoteDatasource remoteDatasource;
   late NumberTriviaLocalDataSource localDataSource;
   late NetworkInfo networkInfo;
 
-  NumberTriviaRepoIml({
+  NumberTriviaRepoImpl({
     required this.remoteDatasource,
     required this.localDataSource,
     required this.networkInfo,
