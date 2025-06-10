@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:number_trivia/core/error/failures.dart';
 import 'package:number_trivia/core/usecases/usecase.dart';
+import 'package:number_trivia/core/utils/constant.dart';
 import 'package:number_trivia/core/utils/input_converter.dart';
 import 'package:number_trivia/features/number_trivia/domain/entities/number_trivia.dart';
 import 'package:number_trivia/features/number_trivia/domain/usecases/get_concrete_number_trivia.dart';
@@ -11,10 +12,6 @@ import 'package:number_trivia/features/number_trivia/domain/usecases/get_random_
 part 'number_trivia_event.dart';
 part 'number_trivia_state.dart';
 
-const String serverFailureMessage = 'Server Failure';
-const String cacheFailureMessage = 'Cache Failure';
-const String invalidInputMessage =
-    'Invalide Input - the integer must be positive or 0 ';
 
 class NumberTriviaBloc extends Bloc<Getconcre, NumberTriviaState> {
   final GetConcreteNumberTrivia getConcreteNumberTrivia;
