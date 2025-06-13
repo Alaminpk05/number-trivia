@@ -7,9 +7,9 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:number_trivia/core/plateform/network_info.dart' as _i6;
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart'
+import 'package:number_trivia/features/number_trivia/data/datasources/local_data_source/number_trivia_local_data_source.dart'
     as _i5;
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart'
+import 'package:number_trivia/features/number_trivia/data/datasources/remote_data_source/number_trivia_remote_datasource.dart'
     as _i3;
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart'
     as _i2;

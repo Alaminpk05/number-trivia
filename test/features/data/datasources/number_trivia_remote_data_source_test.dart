@@ -1,11 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:number_trivia/core/error/exception.dart';
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart';
+import 'package:number_trivia/core/utils/constant.dart';
 import 'package:http/http.dart' as http;
+import 'package:number_trivia/features/number_trivia/data/datasources/remote_data_source/number_trivia_remote_datasource_impl.dart';
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import '../../../fixtures/fixture_reader.dart';
 import 'number_trivia_remote_data_source_test.mocks.dart';
@@ -51,7 +51,7 @@ void main() {
         //assert
         verify(
           mockHttpClien.get(
-            Uri.parse('http://numbersapi.com/$tNumber'),
+            Uri.parse('${AppConstant.getCroncreteNumberTriviaUrl}/$tNumber'),
             headers: {'Content-Type': 'application/json'},
           ),
         );
@@ -83,7 +83,6 @@ void main() {
     );
   });
 
-
   /// RANDOM NUMBER TRIVIA TEST FUNCTIONS
   group('getRandomNumberTrivia', () {
     final tNumberTriviaModel = NumberTriviaModel.fromJson(
@@ -103,7 +102,7 @@ void main() {
         //assert
         verify(
           mockHttpClien.get(
-            Uri.parse('http://numbersapi.com/random'),
+            Uri.parse(AppConstant.getRandomNumberTriviaUrl),
             headers: {'Content-Type': 'application/json'},
           ),
         );

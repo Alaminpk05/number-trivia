@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,8 +6,8 @@ import 'package:mockito/mockito.dart';
 import 'package:number_trivia/core/error/exception.dart';
 import 'package:number_trivia/core/error/failures.dart';
 import 'package:number_trivia/core/plateform/network_info.dart';
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart';
+import 'package:number_trivia/features/number_trivia/data/datasources/local_data_source/number_trivia_local_data_source.dart';
+import 'package:number_trivia/features/number_trivia/data/datasources/remote_data_source/number_trivia_remote_datasource.dart';
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:number_trivia/features/number_trivia/data/repositories/number_trivia_repo_iml.dart';
 import 'package:number_trivia/features/number_trivia/domain/entities/number_trivia.dart';
@@ -107,7 +106,7 @@ void main() {
           ).thenAnswer((_) async => tNumberTriviaModel);
 
           // act
-          final result = await repository.getConcreteNumberTrivia(tNumber);
+          await repository.getConcreteNumberTrivia(tNumber);
 
           // assert
           verify(mockRemoteDatasource.getConcreteNumberTrivia(tNumber));

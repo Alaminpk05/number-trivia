@@ -34,7 +34,7 @@ class NumberTriviaBloc extends Bloc<Getconcre, NumberTriviaState> {
     final inputeither = inputConverter.stringToUnsignedInteger(event.number);
     await inputeither.fold(
       (failure) async {
-        emit(NumberTriviaErrorState(message: invalidInputMessage));
+        emit(NumberTriviaErrorState(message: AppConstant.invalidInputMessage));
       },
       (integer) async {
         emit(NumberTriviaLoadingState());
@@ -81,9 +81,9 @@ class NumberTriviaBloc extends Bloc<Getconcre, NumberTriviaState> {
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure():
-        return serverFailureMessage;
+        return AppConstant.serverFailureMessage;
       case CacheFailure():
-        return cacheFailureMessage;
+        return AppConstant.cacheFailureMessage;
       default:
         return 'Unexpected error';
     }

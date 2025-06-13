@@ -4,7 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:number_trivia/core/error/exception.dart';
-import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
+import 'package:number_trivia/core/utils/constant.dart';
+import 'package:number_trivia/features/number_trivia/data/datasources/local_data_source/number_trivia_local_data_source_impl.dart';
 import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../fixtures/fixture_reader.dart';
@@ -40,7 +41,7 @@ void main() {
         final result = await datasource.getLastNumberTrivia();
 
         //assert
-        verify(mockSharedPreferences.getString(cachedNumberTrivia));
+        verify(mockSharedPreferences.getString(AppConstant.cachNumberTrivia));
         expect(result, equals(tNumberTiviaModel));
       },
     );
@@ -67,14 +68,14 @@ group('cacheNumberTrivia', () {
   test('should call SharedPreferences to cache data', () async {
   // arrange
   final expectedJsonString = jsonEncode(tNumberTriviaModel.toJson());
-  when(mockSharedPreferences.setString(cachedNumberTrivia, expectedJsonString))
+  when(mockSharedPreferences.setString(AppConstant.cachNumberTrivia, expectedJsonString))
       .thenAnswer((_) async => true); // <- this line fixes the error
 
   // act
   await datasource.cacheNumberTrivia(tNumberTriviaModel);
 
   // assert
-  verify(mockSharedPreferences.setString(cachedNumberTrivia, expectedJsonString)).called(1);
+  verify(mockSharedPreferences.setString(AppConstant.cachNumberTrivia, expectedJsonString)).called(1);
 });
 
 });

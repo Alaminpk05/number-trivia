@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:http/http.dart';
 import 'package:number_trivia/dependency_injection.dart';
 import 'package:number_trivia/features/number_trivia/presentation/bloc/numbert_trivia/number_trivia_bloc.dart';
 import 'package:number_trivia/features/number_trivia/presentation/screens/number_trivia.dart';
@@ -15,7 +13,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -34,10 +31,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.green,
         ),
         debugShowCheckedModeBanner: false,
-        home: BlocConsumer<NumberTriviaBloc, NumberTriviaState>(
-          listener: (context, state) {
-            
-          },
+        home: BlocBuilder<NumberTriviaBloc, NumberTriviaState>(
           builder: (context, state) {
             return NumberTriviaScreen();
           },

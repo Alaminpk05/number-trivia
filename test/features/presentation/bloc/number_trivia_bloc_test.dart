@@ -15,12 +15,12 @@ import 'number_trivia_bloc_test.mocks.dart';
 @GenerateMocks([GetConcreteNumberTrivia, GetRandomNumberTrivia, InputConverter])
 void main() {
   late NumberTriviaBloc bloc;
-  late MockGetConreteNumberTrivia mockGetConreteNumberTrivia;
+  late MockGetConcreteNumberTrivia mockGetConreteNumberTrivia;
   late MockGetRandomNumberTrivia mockGetRandomNumberTrivia;
   late MockInputConverter mockInputConverter;
 
   setUp(() {
-    mockGetConreteNumberTrivia = MockGetConreteNumberTrivia();
+    mockGetConreteNumberTrivia = MockGetConcreteNumberTrivia();
     mockGetRandomNumberTrivia = MockGetRandomNumberTrivia();
     mockInputConverter = MockInputConverter();
 
@@ -76,7 +76,7 @@ void main() {
       expect(bloc.state, equals(NumberTriviaInitial()));
       expectLater(
         bloc.stream,
-        emitsInOrder([NumberTriviaErrorState(message: invalidInputMessage)]),
+        emitsInOrder([NumberTriviaErrorState(message: AppConstant.invalidInputMessage)]),
       );
 
       // act
@@ -132,7 +132,7 @@ void main() {
         // assert later
         final expected = [
           NumberTriviaLoadingState(),
-          NumberTriviaErrorState(message: serverFailureMessage),
+          NumberTriviaErrorState(message: AppConstant.serverFailureMessage),
         ];
 
         expectLater(bloc.stream, emitsInOrder(expected));
@@ -154,7 +154,7 @@ void main() {
         // assert later
         final expected = [
           NumberTriviaLoadingState(),
-          NumberTriviaErrorState(message: serverFailureMessage),
+          NumberTriviaErrorState(message: AppConstant.serverFailureMessage),
         ];
 
         expectLater(bloc.stream, emitsInOrder(expected));
@@ -220,7 +220,7 @@ void main() {
         // assert later
         final expected = [
           NumberTriviaLoadingState(),
-          NumberTriviaErrorState(message: serverFailureMessage),
+          NumberTriviaErrorState(message: AppConstant.serverFailureMessage),
         ];
 
         expectLater(bloc.stream, emitsInOrder(expected));
@@ -242,7 +242,7 @@ void main() {
         // assert later
         final expected = [
           NumberTriviaLoadingState(),
-          NumberTriviaErrorState(message: serverFailureMessage),
+          NumberTriviaErrorState(message: AppConstant.serverFailureMessage),
         ];
 
         expectLater(bloc.stream, emitsInOrder(expected));

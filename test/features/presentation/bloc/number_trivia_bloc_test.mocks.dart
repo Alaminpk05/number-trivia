@@ -44,12 +44,12 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [GetConreteNumberTrivia].
+/// A class which mocks [GetConcreteNumberTrivia].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetConreteNumberTrivia extends _i1.Mock
+class MockGetConcreteNumberTrivia extends _i1.Mock
     implements _i4.GetConcreteNumberTrivia {
-  MockGetConreteNumberTrivia() {
+  MockGetConcreteNumberTrivia() {
     _i1.throwOnMissingStub(this);
   }
 

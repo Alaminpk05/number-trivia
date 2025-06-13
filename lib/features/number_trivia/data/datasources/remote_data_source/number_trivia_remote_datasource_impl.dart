@@ -1,15 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:number_trivia/core/error/exception.dart';
-import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 import 'package:http/http.dart' as http;
-
-abstract class NumberTriviaRemoteDatasource {
-  Future<NumberTriviaModel> getConcreteNumberTrivia(int number);
-
-  Future<NumberTriviaModel> getRandomNumberTrivia();
-}
+import 'package:number_trivia/core/error/exception.dart';
+import 'package:number_trivia/core/utils/constant.dart';
+import 'package:number_trivia/features/number_trivia/data/datasources/remote_data_source/number_trivia_remote_datasource.dart';
+import 'package:number_trivia/features/number_trivia/data/models/number_trivia.dart';
 
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDatasource {
   final http.Client client;
@@ -18,16 +13,11 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDatasource {
 
   @override
   Future<NumberTriviaModel> getConcreteNumberTrivia(int number) =>
-      _getTriviaFromUrl('http://numbersapi.com/$number');
-
-
+      _getTriviaFromUrl('${AppConstant.getCroncreteNumberTriviaUrl}/$number');
 
   @override
   Future<NumberTriviaModel> getRandomNumberTrivia() =>
-      _getTriviaFromUrl('http://numbersapi.com/random');
-
-
-
+      _getTriviaFromUrl('${AppConstant.getCroncreteNumberTriviaUrl}/random');
 
   Future<NumberTriviaModel> _getTriviaFromUrl(String url) async {
     final response = await client.get(
